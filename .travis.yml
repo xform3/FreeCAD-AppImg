@@ -42,6 +42,9 @@ after_success:
 - mkdir images
 - cp out/*.AppImage images/
 - cp conda/*AppImage images/
+- ls -lh images/* # Assuming you have some files in out/ that you would like to upload
+- wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+- bash upload.sh images/*
 
 deploy:
   provider: gcs
