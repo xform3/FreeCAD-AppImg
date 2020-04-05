@@ -6,8 +6,8 @@ env:
     - FREECAD_RELEASE="0.18"
     # - DEPLOY_RELEASE=${DEPLOY_RELEASE:-$FREECAD_RELEASE}
     - OSX_PORTS_CACHE=${OSX_PORTS_CACHE:-FreeCAD/FreeCAD-ports-cache}
-    - DEPLOY_REPO=${DEPLOY_REPO:-FreeCAD/FreeCAD}
-    - DEPLOY=${DEPLOY:-0}
+    - DEPLOY_REPO=${DEPLOY_REPO:-Xform3/FreeCAD-AppImage}
+    - DEPLOY=${DEPLOY:-1}
 
 os:
   - linux
@@ -91,7 +91,7 @@ script:
 after_success:
   - # Deploy stable builds to latest
   - # Use an authentication token to avoid rate limit
-  - DEPLOY_RELEASE_STABLE="$(curl -s -H "Authorization:token ${GH_TOKEN}" "https://api.github.com/repos/FreeCAD/FreeCAD/releases/latest" | jq -r .tag_name)"
+  - DEPLOY_RELEASE_STABLE="$(curl -s "https://api.github.com/repos/FreeCAD/FreeCAD/tags" | jq -r .[0].name)"
   - # Uncomment to manually set the tag name
   - # DEPLOY_RELEASE_STABLE="0.18.3"
   - echo "$DEPLOY_RELEASE_STABLE"
